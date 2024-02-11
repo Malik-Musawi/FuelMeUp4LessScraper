@@ -274,7 +274,13 @@ def parse_initial_data(soup):
         name = station.select_one('.header__header3___1b1oq').text.strip()
         address = station.select_one('.StationDisplay-module__address___2_c7v').text.strip().replace(' \n', ', ')
         price = station.select_one('.StationDisplayPrice-module__price___3rARL').text.strip()
-        last_updated = station.select_one('.ReportedBy-module__postedTime___J5H9Z').text.strip()
+        last_updated_element = station.select_one('.ReportedBy-module__postedTime___J5H9Z')
+        if last_updated_element is not None:
+            last_updated = last_updated_element.text.strip()  # ISO formatted
+        else:
+            last_updated = "N/A"
+
+
         gas_prices.append({'name': name, 'address': address, 'price': price, 'last_updated': last_updated})
     return gas_prices
 
