@@ -694,6 +694,8 @@ def calculate_total_price_to_fill():
             entry['Total Price'] = f"${entry['Total Price']:.2f}"
         else:
             entry['Total Price'] = amount * entry['price']
+            # add a cent sign to the price
+            entry['price'] = f"{entry['price']}¢"
             if unit == 'l':
                 entry['Total Price'] = entry['Total Price'] / 100
             entry['Total Price'] = entry['Total Price'] + (entry['Total Price'] * tax)
