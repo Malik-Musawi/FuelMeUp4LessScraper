@@ -20,7 +20,7 @@ logging.basicConfig(level=logging.DEBUG, filename='scraper.log', format='%(ascti
 
 # Welcome message and usage instructions
 def welcome_message():
-    print("Welcome to FuelMeUp4LessScraper!  by Malik Al-Musawi ")
+    print("Welcome to FuelMeUp4LessScraper! 0.5v by Malik Al-Musawi ")
     print("This tool still in-test helps you find the cheapest gas prices.")
     print("\nUsage:")
     print("h - Help")
