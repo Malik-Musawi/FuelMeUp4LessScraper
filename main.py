@@ -453,14 +453,19 @@ def parse_additional_data(json_data):
             price_info, last_updated = 'N/A', 'N/A'
             for price in prices:
                 if price.get('credit'):
-                    price_info = f"{price['credit'].get('formattedPrice', 'N/A')}¢"
+                    # Ensure formattedPrice is not repeated
+                    price_info = price['credit'].get('formattedPrice', 'N/A')
                     last_updated_iso = price['credit'].get('postedTime', '')
                     if last_updated_iso:
                         last_updated = format_last_updated(last_updated_iso)
                     break  # Assuming we're interested in the first credit price
+            # If price_info ends with '¢' or '$', we don't append another '¢' or '$'
+            if price_info and not price_info.endswith(('¢', '$')):
+                price_info += '¢' if price_info.isdigit() else ''
             gas_prices.append({'name': name, 'address': address, 'price': price_info, 'last_updated': last_updated})
     next_cursor = json_data['data']['locationBySearchTerm']['stations']['cursor'].get('next', None)
     return gas_prices, next_cursor
+
 
 
 # Save data to file
